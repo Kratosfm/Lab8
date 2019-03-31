@@ -3,7 +3,7 @@ const router = express.Router()
 const {ListaPosts} = require ('./blog-post-model')
 
 
-router.get('/blog-posts', (req,res,next) => {
+router.get('/blog-post', (req,res,next) => {
   let posts = ListaPosts.get()
   if (posts) {
         res.status(200).json({
@@ -21,7 +21,7 @@ router.get('/blog-posts', (req,res,next) => {
     }
 })
 
-router.get('/blog-posts/:author', (req,res,next) => {
+router.get('/blog-post/:author', (req,res,next) => {
   let author = req.params.author
   if (!(req.params.author)) {
         res.status(406).json({
@@ -46,7 +46,7 @@ router.get('/blog-posts/:author', (req,res,next) => {
         })
     }
 })
-router.post('/blog-posts', (req,res, next) => {
+router.post('/blog-post', (req,res, next) => {
     let requiredFields = ["title", "content", "author", "publishDate"]
     for (rf of requiredFields) {
         if (!(rf in req.body)) {
@@ -70,7 +70,7 @@ router.post('/blog-posts', (req,res, next) => {
     })
 })
 
-router.delete('/blog-posts/:id', (req,res, next) => {
+router.delete('/blog-post/:id', (req,res, next) => {
     if (!(req.params.id)) {
         res.status(406).json({
             message: `Missing field in params.`,
@@ -109,7 +109,7 @@ router.delete('/blog-posts/:id', (req,res, next) => {
         }
 })
 
-router.put('/blog-posts/:id', (req,res,next) => {
+router.put('/blog-post/:id', (req,res,next) => {
   let id = req.params.id
     if (!id) {
         res.status(406).json({
